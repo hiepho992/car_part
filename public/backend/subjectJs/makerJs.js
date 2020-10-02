@@ -6,7 +6,7 @@ maker.show = function () {
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": "http://127.0.0.1:8000/admin/maker/getList",
+            "url": "http://quanlyphutung.herokuapp.com/admin/maker/getList",
             "type": "GET"
         },
         columns: [
@@ -24,7 +24,7 @@ maker.create = function () {
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/admin/maker/create",
+        url: "http://quanlyphutung.herokuapp.com/admin/maker/create",
         method: "POST",
         dataType: "json",
         data: new FormData($('#makerForm')[0]),
@@ -55,7 +55,7 @@ maker.update = function () {
         }
     });
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/maker/update/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/maker/update/${id}`,
         method: "POST",
         dataType: "json",
         data: new FormData($('#makerForm')[0]),
@@ -89,7 +89,7 @@ maker.delete = function (id) {
     alertify.confirm("Xóa hãng","Bạn chắc chắn muốn xóa ?",
         function () {
             $.ajax({
-                url: `http://127.0.0.1:8000/admin/maker/destroy/${id}`,
+                url: `http://quanlyphutung.herokuapp.com/admin/maker/destroy/${id}`,
                 method: "DELETE",
                 dataType: "json",
                 success: function () {
@@ -121,7 +121,7 @@ maker.openModal = function (element) {
 
 maker.edit = function (id) {
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/maker/edit/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/maker/edit/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -148,7 +148,7 @@ $(document).ready(function () {
 //         "destroy": true,
 
 //         "ajax": {
-//             "url": 'http://127.0.0.1:8000/admin/maker/getDataSearch',
+//             "url": 'http://quanlyphutung.herokuapp.com/admin/maker/getDataSearch',
 //             "type": "POST",
 //             "data": {
 //                 'name': $('#name').val(),

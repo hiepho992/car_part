@@ -6,7 +6,7 @@ category.show = function () {
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": "http://127.0.0.1:8000/admin/category/getList",
+            "url": "http://quanlyphutung.herokuapp.com/admin/category/getList",
             "type": "GET"
         },
         columns: [
@@ -24,7 +24,7 @@ category.create = function () {
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/admin/category/create",
+        url: "http://quanlyphutung.herokuapp.com/admin/category/create",
         method: "POST",
         dataType: "json",
         data: new FormData($('#categoryForm')[0]),
@@ -55,7 +55,7 @@ category.update = function () {
         }
     });
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/category/update/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/category/update/${id}`,
         method: "POST",
         dataType: "json",
         data: new FormData($('#categoryForm')[0]),
@@ -89,7 +89,7 @@ category.delete = function (id) {
     alertify.confirm("Xóa hãng","Bạn chắc chắn muốn xóa ?",
         function () {
             $.ajax({
-                url: `http://127.0.0.1:8000/admin/category/destroy/${id}`,
+                url: `http://quanlyphutung.herokuapp.com/admin/category/destroy/${id}`,
                 method: "DELETE",
                 dataType: "json",
                 success: function () {
@@ -121,7 +121,7 @@ category.openModal = function (element) {
 
 category.edit = function (id) {
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/category/edit/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/category/edit/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -148,7 +148,7 @@ $(document).ready(function () {
 //         "destroy": true,
 
 //         "ajax": {
-//             "url": 'http://127.0.0.1:8000/admin/category/getDataSearch',
+//             "url": 'http://quanlyphutung.herokuapp.com/admin/category/getDataSearch',
 //             "type": "POST",
 //             "data": {
 //                 'name': $('#name').val(),

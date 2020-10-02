@@ -6,7 +6,7 @@ product.show = function () {
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": "http://127.0.0.1:8000/admin/product/getList",
+            "url": "http://quanlyphutung.herokuapp.com/admin/product/getList",
             "type": "GET"
         },
         columns: [
@@ -31,7 +31,7 @@ product.create = function () {
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/admin/product/create",
+        url: "http://quanlyphutung.herokuapp.com/admin/product/create",
         method: "POST",
         dataType: "json",
         data: new FormData($('#productForm')[0]),
@@ -80,7 +80,7 @@ product.update = function () {
         }
     });
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/product/update/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/product/update/${id}`,
         method: "POST",
         dataType: "json",
         data: new FormData($('#productForm')[0]),
@@ -131,7 +131,7 @@ product.delete = function (id) {
     alertify.confirm("Xóa hãng", "Bạn chắc chắn muốn xóa ?",
         function () {
             $.ajax({
-                url: `http://127.0.0.1:8000/admin/product/destroy/${id}`,
+                url: `http://quanlyphutung.herokuapp.com/admin/product/destroy/${id}`,
                 method: "DELETE",
                 dataType: "json",
                 success: function () {
@@ -163,7 +163,7 @@ product.openModal = function (element) {
 
 product.edit = function (id) {
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/product/edit/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/product/edit/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -206,7 +206,7 @@ product.getCar = function(id){
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": `http://127.0.0.1:8000/admin/product/getCar/${id}`,
+            "url": `http://quanlyphutung.herokuapp.com/admin/product/getCar/${id}`,
             "type": "GET"
         },
         columns: [
@@ -230,7 +230,7 @@ product.search = function () {
         "destroy": true,
 
         "ajax": {
-            "url": 'http://127.0.0.1:8000/admin/product/getDataSearch',
+            "url": 'http://quanlyphutung.herokuapp.com/admin/product/getDataSearch',
             "type": "POST",
             "data": {
                 'name': $('#name').val(),

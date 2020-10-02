@@ -6,7 +6,7 @@ car.show = function () {
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": "http://127.0.0.1:8000/admin/car/getList",
+            "url": "http://quanlyphutung.herokuapp.com/admin/car/getList",
             "type": "GET"
         },
         columns: [
@@ -25,7 +25,7 @@ car.create = function () {
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/admin/car/create",
+        url: "http://quanlyphutung.herokuapp.com/admin/car/create",
         method: "POST",
         dataType: "json",
         data: new FormData($('#carForm')[0]),
@@ -59,7 +59,7 @@ car.update = function () {
         }
     });
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/car/update/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/car/update/${id}`,
         method: "POST",
         dataType: "json",
         data: new FormData($('#carForm')[0]),
@@ -95,7 +95,7 @@ car.delete = function (id) {
     alertify.confirm("Xóa tên xe","Bạn chắc chắn muốn xóa ?",
         function () {
             $.ajax({
-                url: `http://127.0.0.1:8000/admin/car/destroy/${id}`,
+                url: `http://quanlyphutung.herokuapp.com/admin/car/destroy/${id}`,
                 method: "DELETE",
                 dataType: "json",
                 success: function () {
@@ -127,7 +127,7 @@ car.openModal = function (element) {
 
 car.edit = function (id) {
     $.ajax({
-        url: `http://127.0.0.1:8000/admin/car/edit/${id}`,
+        url: `http://quanlyphutung.herokuapp.com/admin/car/edit/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -157,7 +157,7 @@ $(document).ready(function () {
 //         "destroy": true,
 
 //         "ajax": {
-//             "url": 'http://127.0.0.1:8000/admin/car/getDataSearch',
+//             "url": 'http://quanlyphutung.herokuapp.com/admin/car/getDataSearch',
 //             "type": "POST",
 //             "data": {
 //                 'name': $('#name').val(),
