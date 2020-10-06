@@ -70,7 +70,29 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="car_id" class="col-sm-4 col-form-label">Xe</label>
+                            <label for="" class="col-sm-4 col-form-label">Hãng xe</label>
+                            <div class="col-sm-8">
+                                <select name="maker_id" id="maker_id" class="form-control chosen-select" multiple onchange="product.makers()">
+                                    @foreach ($makers as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="errorCar_id" style="color: red; font-size: 12.5px"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Loại xe</label>
+                            <div class="col-sm-8">
+                                <select name="classcar_id[]" id="classcar_id" class="form-control chosen-select" multiple onchange="product.classCar()">
+                                    @foreach ($classCars as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="errorCar_id" style="color: red; font-size: 12.5px"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-4 col-form-label">Xe</label>
                             <div class="col-sm-8">
                                 <select name="car_id[]" id="car_id" class="form-control chosen-select" multiple>
                                     @foreach ($cars as $value)
@@ -131,6 +153,7 @@
                     <table id="getCarTb">
                         <thead>
                             <th class="text-center">ID</th>
+                            <th class="text-center">Hãng xe</th>
                             <th class="text-center">Tên xe</th>
                         </thead>
                         <tbody class="text-center">

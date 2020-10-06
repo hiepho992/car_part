@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Car;
 use App\Category;
+use App\ClassCar;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Datatable;
 use App\Http\Requests\ProductUpdateValidate;
 use App\Http\Requests\ProductValidate;
+use App\Maker;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,7 +20,9 @@ class ProductController extends Controller
     {
         $cars = Car::all();
         $categories = Category::all();
-        return view('admin.products.index', compact('cars', 'categories'));
+        $makers = Maker::all();
+        $classCars = ClassCar::all();
+        return view('admin.products.index', compact('cars', 'categories', 'makers', 'classCars'));
     }
 
     public function getList()
@@ -62,8 +66,14 @@ class ProductController extends Controller
     {
         $products = Product::findOrFail($id);
         $car = $products->cars;
+        foreach($car as $value){
+           $classCars[] = $value->classCar;
+        }
+        foreach($classCars as $value){
+            $makers[] = $value->maker;
+        }
 
-        return response()->json([$products, $car], 200);
+        return response()->json([$products, $car, $classCars,  $makers], 200);
     }
 
     public function update(ProductUpdateValidate $request, $id)
@@ -91,7 +101,6 @@ class ProductController extends Controller
             $products->cars()->attach($car_id);
         }
 
-
         return response()->json($products, 200);
     }
 
@@ -107,17 +116,35 @@ class ProductController extends Controller
     public function getCar($id){
         $products = Product::findOrfail($id);
         $cars = $products->cars;
-        $datatable = DataTables::of($cars)
-        ->addColumn('id', function($cars){
-            return $cars->id;
-        })
-        ->addColumn('name', function($cars){
-            return $cars->name;
-        })
-        ->rawColumns(['id', 'name'])
-        ->make();
+        $data = [];
+        foreach($cars as $car){
+            $data[] = [
+                'id'=> $car->id,
+                'maker' => $car->classCar->maker->name,
+                'name' => $car->name
+            ];
+        }
+        $datatable = DataTables::of($data)->make();
 
         return $datatable;
+    }
+
+    public function makers($id)
+    {
+        $i = explode(",", $id);
+        $classCars = Maker::select('class_cars.*')
+        ->join('class_cars', 'class_cars.maker_id', '=', 'makers.id')
+        ->wherein('makers.id', $i)
+        ->get();
+        return response()->json($classCars, 200);
+    }
+
+    public function classCar($id)
+    {
+        $i = explode(",", $id);
+        $cars = Car::wherein('classcar_id', $i)->get();
+
+        return response()->json($cars, 200);
     }
 
     public function search()

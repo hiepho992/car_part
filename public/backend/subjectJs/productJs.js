@@ -6,7 +6,7 @@ product.show = function () {
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": "http://quanlyphutung.herokuapp.com/admin/product/getList",
+            "url": "http://127.0.0.1:8000/admin/product/getList",
             "type": "GET"
         },
         columns: [
@@ -31,7 +31,7 @@ product.create = function () {
         }
     });
     $.ajax({
-        url: "http://quanlyphutung.herokuapp.com/admin/product/create",
+        url: "http://127.0.0.1:8000/admin/product/create",
         method: "POST",
         dataType: "json",
         data: new FormData($('#productForm')[0]),
@@ -80,7 +80,7 @@ product.update = function () {
         }
     });
     $.ajax({
-        url: `http://quanlyphutung.herokuapp.com/admin/product/update/${id}`,
+        url: `http://127.0.0.1:8000/admin/product/update/${id}`,
         method: "POST",
         dataType: "json",
         data: new FormData($('#productForm')[0]),
@@ -131,7 +131,7 @@ product.delete = function (id) {
     alertify.confirm("Xóa hãng", "Bạn chắc chắn muốn xóa ?",
         function () {
             $.ajax({
-                url: `http://quanlyphutung.herokuapp.com/admin/product/destroy/${id}`,
+                url: `http://127.0.0.1:8000/admin/product/destroy/${id}`,
                 method: "DELETE",
                 dataType: "json",
                 success: function () {
@@ -163,14 +163,25 @@ product.openModal = function (element) {
 
 product.edit = function (id) {
     $.ajax({
-        url: `http://quanlyphutung.herokuapp.com/admin/product/edit/${id}`,
+        url: `http://127.0.0.1:8000/admin/product/edit/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            var id = [];
+            var id = [];            
             for (var i = 0; i < data[1].length; i++) {
                 id.push(data[1][i].id);
             }
+            var idClass = [];
+            for (var i = 0; i < data[2].length; i++) {
+                idClass.push(data[2][i].id);
+            }
+            console.log(idClass);
+            var idMaker = [];
+            for (var i = 0; i < data[3].length; i++) {
+                idMaker.push(data[3][i].id);
+            }
+            $('#maker_id').val(idMaker).trigger('chosen:updated');
+            $('#classcar_id').val(idClass).trigger('chosen:updated');
             $('#car_id').val(id).trigger('chosen:updated');
             $('#id').val(data[0].id);
             $('#name').val(data[0].name);
@@ -187,6 +198,8 @@ product.reset = function () {
     $('#name').val('');
     $('#category_id').val('');
     $('#car_id').val('').trigger('chosen:updated');
+    $('#classcar_id').val('').trigger('chosen:updated');
+    $('#maker_id').val('').trigger('chosen:updated');
     $('#description').val('');
     $('#price').val('');
     $('#brand').val('');
@@ -206,16 +219,52 @@ product.getCar = function(id){
         "serverSide": true,
         "destroy": true,
         "ajax": {
-            "url": `http://quanlyphutung.herokuapp.com/admin/product/getCar/${id}`,
+            "url": `http://127.0.0.1:8000/admin/product/getCar/${id}`,
             "type": "GET"
         },
         columns: [
             { data: 'id' },
+            { data: 'maker' },
             { data: 'name' }
         ],
     });
 }
 
+product.makers = function(){
+    var id = $('#maker_id').val();
+    $.ajax({
+        url: `http://127.0.0.1:8000/admin/product/makers/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function(data){    
+            // console.log(data);        
+            $('#classcar_id').empty();
+            $.each(data, function (i, v) {
+                $('#classcar_id').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                ).trigger('chosen:updated');
+            });
+        }
+    })
+}
+
+product.classCar = function(){
+    var id = $('#classcar_id').val();
+    $.ajax({
+        url: `http://127.0.0.1:8000/admin/product/classCar/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function(data){    
+            console.log(data);        
+            $('#car_id').empty();
+            $.each(data, function (i, v) {
+                $('#car_id').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                ).trigger('chosen:updated');
+            });
+        }
+    })
+}
 
 $(document).ready(function () {
     product.show();
@@ -230,7 +279,7 @@ product.search = function () {
         "destroy": true,
 
         "ajax": {
-            "url": 'http://quanlyphutung.herokuapp.com/admin/product/getDataSearch',
+            "url": 'http://127.0.0.1:8000/admin/product/getDataSearch',
             "type": "POST",
             "data": {
                 'name': $('#name').val(),
