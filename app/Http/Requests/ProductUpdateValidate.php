@@ -26,6 +26,8 @@ class ProductUpdateValidate extends FormRequest
         return [
             'name' => 'required',
             'category_id' => 'required',
+            'maker_id' => 'required',
+            'classcar_id' => 'required',
             'car_id' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
@@ -38,6 +40,8 @@ class ProductUpdateValidate extends FormRequest
         return [
             'name.required' => 'Thông tin không được bỏ trống',
             'category_id.required' => 'Thông tin không được bỏ trống',
+            'maker_id.required' => 'Thông tin không được bỏ trống',
+            'classcar_id.required' => 'Thông tin không được bỏ trống',
             'car_id.required' => 'Thông tin không được bỏ trống',
             'description.required' => 'Thông tin không được bỏ trống',
             'price.required' => 'Thông tin không được bỏ trống',
